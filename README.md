@@ -16,6 +16,12 @@
 
 The `everbridgesdk` package provides a Golang SDK for Everbridge using the Everbridge REST API.
 
+## Links
+
+* Everbridge: https://www.everbridge.com/
+* API Reference: https://api.everbridge.net/
+* Self-Service Integration Guide: https://www.everbridge.com/products/it-alerting/integrations/self-service-integration-guide/
+
 ## Contributing
 
 Features, Issues, and Pull Requests are always welcome.
