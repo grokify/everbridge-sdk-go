@@ -24,6 +24,9 @@ func (epo *EndpointOrganizations) Get() (*http.Response, error) {
 
 func (epo *EndpointOrganizations) GetOrganizationIds() ([]int64, error) {
 	res, err := epo.Get()
+	if err != nil {
+		return []int64{}, err
+	}
 	defer res.Body.Close()
 	contents, err := ioutil.ReadAll(res.Body)
 	if err != nil {
