@@ -1,9 +1,7 @@
-everbridgesdk
--------------
+# Everbridge SDK for Go
 
-The `everbridge` package provides a Golang SDK for Everbridge using the Everbridge REST API.
+The `everbridgesdk` package provides a Golang SDK for Everbridge using the Everbridge REST API.
 
-contributing
-------------
+## Contributing
 
 Features, Issues, and Pull Requests are always welcome.

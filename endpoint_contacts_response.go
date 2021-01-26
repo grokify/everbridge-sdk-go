@@ -6,7 +6,7 @@ import (
 	"path"
 	"regexp"
 
-	"github.com/grokify/gotilla/io/ioutilmore"
+	"github.com/grokify/simplego/io/ioutilmore"
 )
 
 type EndpointContactsResponse struct {
@@ -88,7 +88,7 @@ func GetEpoContactsForPath(filepath string) ([]EndpointContactsResponseObjectCon
 func GetEpoContactsForDir(dir string) ([]EndpointContactsResponseObjectContactWrapper, error) {
 	epoContacts := []EndpointContactsResponseObjectContactWrapper{}
 	re1 := regexp.MustCompile(`^evb_contacts_org-id-[0-9]+_page-num-[0-9]+\.json$`)
-	finfos, err := ioutilmore.DirEntriesReSizeGt0(dir, re1)
+	finfos, _, err := ioutilmore.ReadDirRx(dir, re1, true)
 	if err != nil {
 		return epoContacts, nil
 	}
