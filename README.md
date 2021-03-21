@@ -5,7 +5,7 @@
 [![Docs][docs-godoc-svg]][docs-godoc-url]
 [![License][license-svg]][license-url]
 
- [build-status-svg]: https://github.com/grokify/everbridge-sdk-go/workflows/build/badge.svg
+ [build-status-svg]: https://github.com/grokify/everbridge-sdk-go/workflows/go%20build/badge.svg
  [build-status-url]: https://github.com/grokify/everbridge-sdk-go/actions
  [goreport-svg]: https://goreportcard.com/badge/github.com/grokify/everbridge-sdk-go
  [goreport-url]: https://goreportcard.com/report/github.com/grokify/everbridge-sdk-go
