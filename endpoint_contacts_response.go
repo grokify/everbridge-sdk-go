@@ -88,7 +88,7 @@ func GetEpoContactsForPath(filepath string) ([]EndpointContactsResponseObjectCon
 func GetEpoContactsForDir(dir string) ([]EndpointContactsResponseObjectContactWrapper, error) {
 	epoContacts := []EndpointContactsResponseObjectContactWrapper{}
 	re1 := regexp.MustCompile(`^evb_contacts_org-id-[0-9]+_page-num-[0-9]+\.json$`)
-	finfos, _, err := ioutilmore.ReadDirRx(dir, re1, true)
+	finfos, _, err := ioutilmore.ReadDirMore(dir, re1, true, true)
 	if err != nil {
 		return epoContacts, nil
 	}
