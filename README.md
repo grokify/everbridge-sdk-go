@@ -12,7 +12,7 @@
  [docs-godoc-svg]: https://pkg.go.dev/badge/github.com/grokify/everbridge-sdk-go
  [docs-godoc-url]: https://pkg.go.dev/github.com/grokify/everbridge-sdk-go
  [license-svg]: https://img.shields.io/badge/license-MIT-blue.svg
- [license-url]: https://github.com/grokify/everbridge-sdk-go/blob/master/LICENSE.md
+ [license-url]: https://github.com/grokify/everbridge-sdk-go/blob/master/LICENSE
 
 The `everbridgesdk` package provides a Golang SDK for Everbridge using the Everbridge REST API.
 
