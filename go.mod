@@ -1,5 +1,5 @@
 module github.com/grokify/everbridge-sdk-go
 
-go 1.15
+go 1.16
 
-require github.com/grokify/simplego v0.26.6
+require github.com/grokify/mogo v0.33.0

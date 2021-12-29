@@ -9,7 +9,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/grokify/simplego/io/ioutilmore"
+	"github.com/grokify/mogo/io/ioutilmore"
+	"github.com/grokify/mogo/os/osutil"
 )
 
 type EndpointContacts struct {
@@ -35,7 +36,7 @@ func (ep *EndpointContacts) Get(organizationId int64, pageNumber int64) (*http.R
 }
 
 func (ep *EndpointContacts) GetStoreAll(organizationId int64, dir string) error {
-	isDir, err := ioutilmore.IsDir(dir)
+	isDir, err := osutil.IsDir(dir)
 	if err != nil {
 		return err
 	} else if isDir == false {
