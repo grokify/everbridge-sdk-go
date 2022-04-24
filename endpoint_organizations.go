@@ -2,7 +2,7 @@ package everbridgesdk
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strings"
 )
@@ -12,14 +12,14 @@ type EndpointOrganizations struct {
 }
 
 func (epo *EndpointOrganizations) Get() (*http.Response, error) {
-	url := strings.Join([]string{epo.ClientCore.BaseUrl, "organizations"}, "/")
+	url := strings.Join([]string{epo.ClientCore.BaseURL, "organizations"}, "/")
 
-	req, err := epo.ClientCore.NewRequestForMethodAndUrl("GET", url)
+	req, err := epo.ClientCore.NewRequestForMethodAndURL("GET", url)
 	if err != nil {
 		return &http.Response{}, err
 	}
 
-	return epo.ClientCore.NetHttpClient.Do(req)
+	return epo.ClientCore.NetHTTPClient.Do(req)
 }
 
 func (epo *EndpointOrganizations) GetOrganizationIds() ([]int64, error) {
@@ -28,13 +28,17 @@ func (epo *EndpointOrganizations) GetOrganizationIds() ([]int64, error) {
 		return []int64{}, err
 	}
 	defer res.Body.Close()
-	contents, err := ioutil.ReadAll(res.Body)
+	contents, err := io.ReadAll(res.Body)
 	if err != nil {
 		return []int64{}, err
 	}
 
 	root := map[string]interface{}{}
-	json.Unmarshal(contents, &root)
+	err = json.Unmarshal(contents, &root)
+	if err != nil {
+		return []int64{}, err
+	}
+
 	data := root["page"].(map[string]interface{})["data"].([]interface{})
 
 	organizationIds := []int64{}

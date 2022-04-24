@@ -23,9 +23,9 @@ func NewClient(username string, password string, dataDir string) Client {
 type ClientCore struct {
 	Protocol      string
 	Hostname      string
-	BaseUrl       string
+	BaseURL       string
 	BasicAuthz    string
-	NetHttpClient *http.Client
+	NetHTTPClient *http.Client
 	DataDir       string
 }
 
@@ -33,7 +33,7 @@ func NewClientCore(username string, password string, dataDir string) ClientCore 
 	cc := ClientCore{}
 	cc.Protocol = "https"
 	cc.Hostname = "api.everbridge.net"
-	cc.BaseUrl = "https://api.everbridge.net/rest"
+	cc.BaseURL = "https://api.everbridge.net/rest"
 	cc.DataDir = dataDir
 	cc.LoadClient()
 	cc.LoadCredentials(username, password)
@@ -42,7 +42,7 @@ func NewClientCore(username string, password string, dataDir string) ClientCore 
 
 func (cc *ClientCore) LoadClient() {
 	client := &http.Client{}
-	cc.NetHttpClient = client
+	cc.NetHTTPClient = client
 }
 
 func (cc *ClientCore) LoadCredentials(username string, password string) {
@@ -50,7 +50,7 @@ func (cc *ClientCore) LoadCredentials(username string, password string) {
 	cc.BasicAuthz = base64.StdEncoding.EncodeToString([]byte(authorization))
 }
 
-func (cc *ClientCore) NewRequestForMethodAndUrl(method string, url string) (*http.Request, error) {
+func (cc *ClientCore) NewRequestForMethodAndURL(method string, url string) (*http.Request, error) {
 	req, err := http.NewRequest(method, url, nil)
 	if err == nil {
 		req.Header.Add("Authorization", strings.Join([]string{"Basic", cc.BasicAuthz}, " "))

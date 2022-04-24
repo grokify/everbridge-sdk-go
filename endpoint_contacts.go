@@ -3,8 +3,9 @@ package everbridgesdk
 import (
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
+	"os"
 	"path"
 	"strconv"
 	"strings"
@@ -22,20 +23,20 @@ func NewEndpointsContacts() EndpointContacts {
 	return ep
 }
 
-func (ep *EndpointContacts) Get(organizationId int64, pageNumber int64) (*http.Response, error) {
-	orgIdString := strconv.FormatInt(organizationId, 10)
-	url := strings.Join([]string{ep.ClientCore.BaseUrl, "contacts", orgIdString}, "/")
+func (ep *EndpointContacts) Get(organizationID int64, pageNumber int64) (*http.Response, error) {
+	orgIDString := strconv.FormatInt(organizationID, 10)
+	url := strings.Join([]string{ep.ClientCore.BaseURL, "contacts", orgIDString}, "/")
 	url = url + "?sortBy=externalId&pageNumber=" + strconv.FormatInt(pageNumber, 10)
 
-	req, err := ep.ClientCore.NewRequestForMethodAndUrl("GET", url)
+	req, err := ep.ClientCore.NewRequestForMethodAndURL(http.MethodGet, url)
 	if err != nil {
 		return &http.Response{}, err
 	}
 
-	return ep.ClientCore.NetHttpClient.Do(req)
+	return ep.ClientCore.NetHTTPClient.Do(req)
 }
 
-func (ep *EndpointContacts) GetStoreAll(organizationId int64, dir string) error {
+func (ep *EndpointContacts) GetStoreAll(organizationID int64, dir string) error {
 	isDir, err := osutil.IsDir(dir)
 	if err != nil {
 		return err
@@ -48,14 +49,17 @@ func (ep *EndpointContacts) GetStoreAll(organizationId int64, dir string) error 
 	if err != nil {
 		return err
 	}
-	contents, err := ep.getStoreOrgPage(organizationId, int64(1), dir)
+	contents, err := ep.getStoreOrgPage(organizationID, int64(1), dir)
 	if err != nil {
 		return err
 	}
 	epo := GetEprContactsForBody(contents)
 	if epo.Page.TotalPageCount > 1 {
 		for i := int64(2); i <= epo.Page.TotalPageCount; i++ {
-			ep.getStoreOrgPage(organizationId, i, dir)
+			_, err := ep.getStoreOrgPage(organizationID, i, dir)
+			if err != nil {
+				return err
+			}
 		}
 	}
 	return nil
@@ -69,8 +73,11 @@ func (ep *EndpointContacts) getStoreOrgPage(organizationId int64, pageNumber int
 	filename := ep.GetFilenameForOrgIdAndPageNum(organizationId, pageNumber)
 	filepath := path.Join(dir, filename)
 	defer res.Body.Close()
-	contents, _ := ioutil.ReadAll(res.Body)
-	err = ioutil.WriteFile(filepath, contents, 0644)
+	contents, err := io.ReadAll(res.Body)
+	if err != nil {
+		return contents, err
+	}
+	err = os.WriteFile(filepath, contents, 0600)
 	return contents, err
 }
 

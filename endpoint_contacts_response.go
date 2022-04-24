@@ -2,7 +2,7 @@ package everbridgesdk
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"os"
 	"path"
 	"regexp"
 
@@ -11,9 +11,9 @@ import (
 
 type EndpointContactsResponse struct {
 	Message      string `json:"message"`
-	FirstPageUri string `json:"firstPageUri"`
-	NextPageUri  string `json:"nextPageUri"`
-	LastPageUri  string `json:"lastPageUri"`
+	FirstPageURI string `json:"firstPageUri"`
+	NextPageURI  string `json:"nextPageUri"`
+	LastPageURI  string `json:"lastPageUri"`
 	Page         EndpointContactsResponseObjectPage
 }
 
@@ -28,23 +28,23 @@ type EndpointContactsResponseObjectPage struct {
 
 type EndpointContactsResponseObjectContactWrapper struct {
 	LastModifiedTime  int64                                            `json:"lastModifiedTime"`
-	OrganizationId    int64                                            `json:"organizationId"`
+	OrganizationID    int64                                            `json:"organizationId"`
 	CreatedDate       int64                                            `json:"createdDate"`
 	Groups            []int64                                          `json:"groups"`
 	CreatedName       string                                           `json:"createdName"`
 	LastName          string                                           `json:"lastName"`
 	Status            string                                           `json:"status"`
 	Country           string                                           `json:"country"`
-	RecordTypeId      int64                                            `json:"recordTypeId"`
+	RecordTypeID      int64                                            `json:"recordTypeId"`
 	LastModifiedName  string                                           `json:"lastModifiedName"`
-	AccountId         int64                                            `json:"accountId"`
-	ExternalId        string                                           `json:"externalId"`
+	AccountID         int64                                            `json:"accountId"`
+	ExternalID        string                                           `json:"externalId"`
 	Id                int64                                            `json:"id"`
 	FirstName         string                                           `json:"firstName"`
 	UploadProcessing  bool                                             `json:"uploadProcessing"`
-	ResourceBundleId  int64                                            `json:"resourceBundleId"`
-	CreatedId         int64                                            `json:"createdId"`
-	LastModifiedId    int64                                            `json:"lastModifiedId"`
+	ResourceBundleID  int64                                            `json:"resourceBundleId"`
+	CreatedID         int64                                            `json:"createdId"`
+	LastModifiedID    int64                                            `json:"lastModifiedId"`
 	LastModifiedDate  int64                                            `json:"lastModifiedDate"`
 	ContactAttributes []EndpointContactsResponseObjectContactAttribute `json:"contactAttributes"`
 	Paths             []EndpointContactsResponseObjectContactPath      `json:"paths"`
@@ -52,14 +52,14 @@ type EndpointContactsResponseObjectContactWrapper struct {
 
 type EndpointContactsResponseObjectContactAttribute struct {
 	Values    []string `json:"Values"`
-	OrgAttrId int64    `json:"OrgAttrId"`
+	OrgAttrID int64    `json:"OrgAttrId"`
 	Name      string   `json:"Name"`
 }
 
 type EndpointContactsResponseObjectContactPath struct {
 	WaitTime    int64  `json:"WaitTime"`
 	Status      string `json:"Status"`
-	PathId      int64  `json:"PathId"`
+	PathID      int64  `json:"PathId"`
 	CountryCode string `json:"CountryCode"`
 	Value       string `json:"Value"`
 }
@@ -77,7 +77,7 @@ func GetEpoContactsForBody(content []byte) []EndpointContactsResponseObjectConta
 }
 
 func GetEpoContactsForPath(filepath string) ([]EndpointContactsResponseObjectContactWrapper, error) {
-	bytContents, err := ioutil.ReadFile(filepath)
+	bytContents, err := os.ReadFile(filepath)
 	if err != nil {
 		return []EndpointContactsResponseObjectContactWrapper{}, err
 	}
