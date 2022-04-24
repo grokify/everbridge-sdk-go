@@ -40,7 +40,7 @@ func (ep *EndpointContacts) GetStoreAll(organizationID int64, dir string) error 
 	isDir, err := osutil.IsDir(dir)
 	if err != nil {
 		return err
-	} else if isDir == false {
+	} else if !isDir {
 		str := fmt.Sprintf("500: Path Is Not Directory [%v]", dir)
 		err = errors.New(str)
 		return err
@@ -53,7 +53,10 @@ func (ep *EndpointContacts) GetStoreAll(organizationID int64, dir string) error 
 	if err != nil {
 		return err
 	}
-	epo := GetEprContactsForBody(contents)
+	epo, err := GetEprContactsForBody(contents)
+	if err != nil {
+		return err
+	}
 	if epo.Page.TotalPageCount > 1 {
 		for i := int64(2); i <= epo.Page.TotalPageCount; i++ {
 			_, err := ep.getStoreOrgPage(organizationID, i, dir)
@@ -65,12 +68,12 @@ func (ep *EndpointContacts) GetStoreAll(organizationID int64, dir string) error 
 	return nil
 }
 
-func (ep *EndpointContacts) getStoreOrgPage(organizationId int64, pageNumber int64, dir string) ([]byte, error) {
-	res, err := ep.Get(organizationId, pageNumber)
+func (ep *EndpointContacts) getStoreOrgPage(organizationID int64, pageNumber int64, dir string) ([]byte, error) {
+	res, err := ep.Get(organizationID, pageNumber)
 	if err != nil {
 		return []byte{}, err
 	}
-	filename := ep.GetFilenameForOrgIdAndPageNum(organizationId, pageNumber)
+	filename := ep.GetFilenameForOrgIDAndPageNum(organizationID, pageNumber)
 	filepath := path.Join(dir, filename)
 	defer res.Body.Close()
 	contents, err := io.ReadAll(res.Body)
@@ -81,10 +84,10 @@ func (ep *EndpointContacts) getStoreOrgPage(organizationId int64, pageNumber int
 	return contents, err
 }
 
-func (ep *EndpointContacts) GetFilenameForOrgIdAndPageNum(organizationId int64, pageNumber int64) string {
-	sOrgId := strconv.FormatInt(organizationId, 10)
+func (ep *EndpointContacts) GetFilenameForOrgIDAndPageNum(organizationID int64, pageNumber int64) string {
+	sOrgID := strconv.FormatInt(organizationID, 10)
 	sPgNum := strconv.FormatInt(pageNumber, 10)
-	parts := []string{"evb_contacts_org-id-", sOrgId, "_page-num-", sPgNum, ".json"}
+	parts := []string{"evb_contacts_org-id-", sOrgID, "_page-num-", sPgNum, ".json"}
 	filename := strings.Join(parts, "")
 	return filename
 }

@@ -39,7 +39,7 @@ type EndpointContactsResponseObjectContactWrapper struct {
 	LastModifiedName  string                                           `json:"lastModifiedName"`
 	AccountID         int64                                            `json:"accountId"`
 	ExternalID        string                                           `json:"externalId"`
-	Id                int64                                            `json:"id"`
+	ID                int64                                            `json:"id"`
 	FirstName         string                                           `json:"firstName"`
 	UploadProcessing  bool                                             `json:"uploadProcessing"`
 	ResourceBundleID  int64                                            `json:"resourceBundleId"`
@@ -64,16 +64,19 @@ type EndpointContactsResponseObjectContactPath struct {
 	Value       string `json:"Value"`
 }
 
-func GetEprContactsForBody(content []byte) EndpointContactsResponse {
+func GetEprContactsForBody(content []byte) (EndpointContactsResponse, error) {
 	eprContacts := EndpointContactsResponse{}
-	json.Unmarshal(content, &eprContacts)
-	return eprContacts
+	err := json.Unmarshal(content, &eprContacts)
+	return eprContacts, err
 }
 
-func GetEpoContactsForBody(content []byte) []EndpointContactsResponseObjectContactWrapper {
-	eprContacts := GetEprContactsForBody(content)
+func GetEpoContactsForBody(content []byte) ([]EndpointContactsResponseObjectContactWrapper, error) {
+	eprContacts, err := GetEprContactsForBody(content)
+	if err != nil {
+		return []EndpointContactsResponseObjectContactWrapper{}, err
+	}
 	epoContacts := eprContacts.Page.Data
-	return epoContacts
+	return epoContacts, nil
 }
 
 func GetEpoContactsForPath(filepath string) ([]EndpointContactsResponseObjectContactWrapper, error) {
@@ -81,8 +84,7 @@ func GetEpoContactsForPath(filepath string) ([]EndpointContactsResponseObjectCon
 	if err != nil {
 		return []EndpointContactsResponseObjectContactWrapper{}, err
 	}
-	epoContacts := GetEpoContactsForBody(bytContents)
-	return epoContacts, nil
+	return GetEpoContactsForBody(bytContents)
 }
 
 func GetEpoContactsForDir(dir string) ([]EndpointContactsResponseObjectContactWrapper, error) {
