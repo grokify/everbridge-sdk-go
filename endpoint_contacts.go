@@ -10,7 +10,6 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/grokify/mogo/io/ioutilmore"
 	"github.com/grokify/mogo/os/osutil"
 )
 
@@ -45,7 +44,7 @@ func (ep *EndpointContacts) GetStoreAll(organizationID int64, dir string) error 
 		err = errors.New(str)
 		return err
 	}
-	err = ioutilmore.RemoveAllChildren(dir)
+	err = osutil.DirRemoveAllChildren(dir)
 	if err != nil {
 		return err
 	}
