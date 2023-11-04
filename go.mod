@@ -4,7 +4,7 @@ go 1.21
 
 // toolchain go1.21.1
 
-require github.com/grokify/mogo v0.59.0
+require github.com/grokify/mogo v0.60.0
 
 require (
 	github.com/buger/jsonparser v1.1.1 // indirect
