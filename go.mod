@@ -4,7 +4,7 @@ go 1.21
 
 // toolchain go1.21.1
 
-require github.com/grokify/mogo v0.60.0
+require github.com/grokify/mogo v0.60.1
 
 require (
 	github.com/buger/jsonparser v1.1.1 // indirect
@@ -13,6 +13,6 @@ require (
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/valyala/fastjson v1.6.4 // indirect
 	golang.org/x/exp v0.0.0-20231006140011-7918f672742d // indirect
-	golang.org/x/text v0.13.0 // indirect
+	golang.org/x/text v0.14.0 // indirect
 	gopkg.in/oleiade/reflections.v1 v1.0.0 // indirect
 )
