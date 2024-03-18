@@ -1,8 +1,8 @@
-github.com/grokify/mogo v0.63.0 h1:5VTj394sHXf3GtqATAwa2HWpHBclNS92nXiemoeEfIg=
-github.com/grokify/mogo v0.63.0/go.mod h1:MtSqmuv3LvrnHiptoJaRzw4NuJVFPETg4h/idd3fQzw=
+github.com/grokify/mogo v0.63.3 h1:71+Amyex1tskY8HCPrVVsjHPlc4ASMEyTSchYQpTmKE=
+github.com/grokify/mogo v0.63.3/go.mod h1:K6Piv56/1p2F7iMd2cQZnZDbGaCqLkEq4HkUNPkWiig=
 github.com/huandu/xstrings v1.4.0 h1:D17IlohoQq4UcpqD7fDk80P7l+lwAmlFaBHgOipl2FU=
 github.com/huandu/xstrings v1.4.0/go.mod h1:y5/lhBue+AyNmUVz9RLU9xbLR0o4KIIExikq4ovT0aE=
-golang.org/x/exp v0.0.0-20240119083558-1b970713d09a h1:Q8/wZp0KX97QFTc2ywcOE0YRjZPVIx+MXInMzdvQqcA=
-golang.org/x/exp v0.0.0-20240119083558-1b970713d09a/go.mod h1:idGWGoKP1toJGkd5/ig9ZLuPcZBC3ewk7SzmH0uou08=
+golang.org/x/exp v0.0.0-20240314144324-c7f7c6466f7f h1:3CW0unweImhOzd5FmYuRsD4Y4oQFKZIjAnKbjV4WIrw=
+golang.org/x/exp v0.0.0-20240314144324-c7f7c6466f7f/go.mod h1:CxmFvTBINI24O/j8iY7H1xHzx2i4OsyguNBmN/uPtqc=
 golang.org/x/text v0.14.0 h1:ScX5w1eTa3QqT8oi6+ziP7dTV1S2+ALU0bI+0zXKWiQ=
 golang.org/x/text v0.14.0/go.mod h1:18ZOQIKpY8NJVqYksKHtTdi31H5itFRjB5/qKTNYzSU=
